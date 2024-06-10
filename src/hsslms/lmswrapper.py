@@ -58,10 +58,8 @@ class LMS_Wrapper_Priv(LMS_Priv):
         Returns:
             bytes: The signature to `message`.
         """
-        # sha384 of the message.
-        message_digest = sha384(message).digest()
 
-        signature = super().sign(message_digest)
+        signature = super().sign(message)
         self.sign_count += 1
 
         # check for the below comments later
@@ -151,11 +149,9 @@ class LMS_Wrapper_Priv(LMS_Priv):
         Returns:
             True if signature is correct else False
         """
-        # sha384 of the message
-        message_digest = sha384(message).digest()
 
         try:
-            public_key.verify(message_digest, signature)
+            public_key.verify(message, signature)
             return True
         except:
             return False
